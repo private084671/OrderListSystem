@@ -9,7 +9,7 @@ Public Sub SaveMails(ByVal EntryIDCollection As String)
     
     Dim Items() As MailItem
     
-    Set Items = clsEntryID.GetMailItems(EntryIDCollection)
+    Items = clsEntryID.GetMailItems(EntryIDCollection)
     
     'Items‚ª‹ó‚Ìê‡‚Ìˆ—‚ª•K—v
     
