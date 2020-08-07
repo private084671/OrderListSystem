@@ -11,6 +11,44 @@ Option Explicit
 
     Private mItem As MailItem
     Private mGUID As String
+Public Sub SaveMSGFile(ByVal Directory As String)
+
+    Dim FolderPath As String
+    
+    FolderPath = Directory & "\" & mGUID
+
+    Call MkDir(FolderPath)
+
+    'FolderPathの作成に失敗した場合の処理がない
+    
+    Dim MSGFilePath As String
+    
+    MSGFilePath = FolderPath & "\メールアイテム.msg"
+    
+    Call mItem.SaveAs(MSGFilePath, olMSG)
+    
+    If mItem.Attachments.Count >= 1 Then Call SaveAttachmentFile(FolderPath)
+    
+End Sub
+Private Sub SaveAttachmentFile(ByVal Directory As String)
+
+    Dim FolderPath As String
+    
+    FolderPath = Directory & "\添付ファイル"
+    
+    Call MkDir(FolderPath)
+    
+    'FolderPathの作成に失敗した場合の処理がない
+    
+    Dim TargetFile As Attachment
+    
+    For Each TargetFile In mItem.Attachments
+    
+        Call TargetFile.SaveAsFile(FolderPath & "\" & TargetFile.FileName)
+    
+    Next TargetFile
+
+End Sub
 
 Public Property Set Item(ByRef TargetItem As MailItem)
 
